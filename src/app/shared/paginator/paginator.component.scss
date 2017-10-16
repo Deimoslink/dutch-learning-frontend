@@ -1,0 +1,39 @@
+@import '~global.scss';
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  li {
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+    color: $color-aquagreen;
+    text-decoration: none;
+    cursor: pointer;
+    &:first-of-type {
+      margin-right: 20px;
+    }
+    &:last-of-type {
+      margin-left: 20px;
+    }
+  }
+  .btn {
+    @include square(28px);
+    margin: 0 1px;
+    border: 1px solid white;
+    border-radius: 5px;
+    &:hover {
+      border: 1px solid $color-aquagreen;
+    }
+    &.active {
+      border: 1px solid $color-aquagreen;
+      background-color: $color-aquagreen;
+      color: white;
+    }
+  }
+}

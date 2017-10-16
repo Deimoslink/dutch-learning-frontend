@@ -6,10 +6,12 @@ import {AlertModule} from 'ngx-bootstrap';
 
 import {AppComponent} from './app.component';
 import {ApiService} from './shared/api.service';
+import {PaginatorComponent} from './shared/paginator/paginator.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PaginatorComponent
   ],
   imports: [
     AlertModule.forRoot(),

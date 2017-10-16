@@ -112,7 +112,10 @@
           </tr>
         </tbody>
       </table>
-
+      <app-paginator
+        [number]="1"
+        [totalPages]="4"
+        (refreshNumber)="refreshNumber($event)"></app-paginator>
     </div>
   </div>
 

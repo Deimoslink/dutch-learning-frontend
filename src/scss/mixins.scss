@@ -1,1 +1,4 @@
-/*MIXINS*/
+@mixin square($side: auto) {
+  width: $side;
+  height: $side;
+}

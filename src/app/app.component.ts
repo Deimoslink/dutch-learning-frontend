@@ -101,6 +101,10 @@ export class AppComponent implements OnInit {
     });
   }
 
+  refreshNumber(e) {
+    console.log(e);
+  }
+
   ngOnInit() {
     this.getWords();
   }
