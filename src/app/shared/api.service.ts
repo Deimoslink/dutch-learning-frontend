@@ -15,6 +15,10 @@ export class ApiService {
     return this.http.post(this.baseURL + '/words', newWord);
   }
 
+  deleteWord(id): Observable<any> {
+    return this.http.delete(this.baseURL + '/words/' + id);
+  }
+
   getWords(): Observable<any> {
     return this.http.get(this.baseURL + '/words');
   }

@@ -1,35 +1,36 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <form [formGroup]="wordForm" (ngSubmit)="sendWord()">
+      <h4>Add a new word</h4>
+      <form [formGroup]="addWordForm" (ngSubmit)="sendWord()" class="well">
         <div class="form-inline app-inline-form">
           <div class="form-group">
-            <label for="english-word">English</label>
+            <label for="addEnglishWord">English</label>
             <input type="text"
                    class="form-control"
-                   id="english-word"
+                   id="addEnglishWord"
                    [(ngModel)]="newWord.eng"
                    formControlName="eng">
           </div>
           <div class="form-group">
-            <label for="russian-word">Russian</label>
+            <label for="addRussianWord">Russian</label>
             <input type="text"
                    class="form-control"
-                   id="russian-word"
+                   id="addRussianWord"
                    [(ngModel)]="newWord.rus"
                    formControlName="rus">
           </div>
           <div class="form-group">
-            <label for="dutch-word">Dutch</label>
+            <label for="addDutchWord">Dutch</label>
             <input type="text"
                    class="form-control"
-                   id="dutch-word"
+                   id="addDutchWord"
                    [(ngModel)]="newWord.ned"
                    formControlName="ned">
           </div>
         </div>
         <div class="form-group">
-          <label for="dutch-word">Part of speech</label>
+          <label>Part of speech</label>
           <select class="form-control app-select"
                   [(ngModel)]="newWord.part"
                   formControlName="part">
@@ -42,15 +43,61 @@
             <option value="preposition">preposition</option>
           </select>
         </div>
-        <button class="btn btn-default" type="submit" [disabled]="!wordForm.valid">Add word</button>
+        <button class="btn btn-default" type="submit" [disabled]="!addWordForm.valid">Add word</button>
+      </form>
+      <h4>Check yourself</h4>
+      <form [formGroup]="checkWordForm" (ngSubmit)="checkWord()" class="well">
+        <div class="form-inline app-inline-form">
+          <div class="form-group">
+            <label for="checkEnglishWord">English</label>
+            <input type="text"
+                   class="form-control"
+                   id="checkEnglishWord"
+                   [(ngModel)]="checkWord.eng"
+                   formControlName="eng">
+          </div>
+          <div class="form-group">
+            <label for="checkRussianWord">Russian</label>
+            <input type="text"
+                   class="form-control"
+                   id="checkRussianWord"
+                   [(ngModel)]="checkWord.rus"
+                   formControlName="rus">
+          </div>
+          <div class="form-group">
+            <label for="checkDutchWord">Dutch</label>
+            <input type="text"
+                   class="form-control"
+                   id="checkDutchWord"
+                   [(ngModel)]="checkWord.ned"
+                   formControlName="ned">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Part of speech</label>
+          <select class="form-control app-select"
+                  [(ngModel)]="checkWord.part"
+                  formControlName="part">
+            <option value="pronoun">pronoun</option>
+            <option value="noun">noun</option>
+            <option value="verb">verb</option>
+            <option value="adjective">adjective</option>
+            <option value="adverb">adverb</option>
+            <option value="subordinate">subordinate</option>
+            <option value="preposition">preposition</option>
+          </select>
+        </div>
+        <button class="btn btn-default" type="button" (click)="getRandomWord($event)">Get random word</button>
+        <button class="btn btn-default" type="submit" [disabled]="!checkWordForm.valid">Check word</button>
       </form>
     </div>
     <div class="col-sm-6">
+      <h4>Your words</h4>
       <button class="btn btn-default" (click)="getWords()">Get words</button>
       <table class="table table-bordered app-table">
         <thead>
           <tr>
-            <th>Id</th>
+            <th class="delete-column"></th>
             <th>English</th>
             <th>Russian</th>
             <th>Dutch</th>
@@ -58,7 +105,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let word of words; let i = index">
-            <td>{{word.id}}</td>
+            <td class="delete-column"><i class="fa fa-times delete-btn" (click)="deleteWord(word.id)"></i></td>
             <td>{{word.eng}}</td>
             <td>{{word.rus}}</td>
             <td>{{word.ned}}</td>

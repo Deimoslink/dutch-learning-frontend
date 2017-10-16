@@ -14,12 +14,30 @@ export class AppComponent implements OnInit {
     ned: '',
     part: ''
   };
+  checkWord = {
+    eng: '',
+    rus: '',
+    ned: '',
+    part: ''
+  };
   words = [];
-  public wordForm: FormGroup;
+  public addWordForm: FormGroup;
+  public checkWordForm: FormGroup;
 
   constructor(private fb: FormBuilder, private api: ApiService) {
 
-    this.wordForm = fb.group({
+    this.addWordForm = fb.group({
+      'eng': new FormControl({value: null, disabled: false},
+        Validators.required),
+      'rus': new FormControl({value: null, disabled: false},
+        Validators.required),
+      'ned': new FormControl({value: null, disabled: false},
+        Validators.required),
+      'part': new FormControl({value: null, disabled: false},
+        Validators.required)
+    });
+
+    this.checkWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: false},
         Validators.required),
       'rus': new FormControl({value: null, disabled: false},
@@ -33,7 +51,6 @@ export class AppComponent implements OnInit {
 
   sendWord() {
     this.api.saveNewWord(this.newWord).subscribe(res => {
-      console.log(res);
       this.words.push(JSON.parse(res._body));
       this.newWord = {
         eng: '',
@@ -46,9 +63,33 @@ export class AppComponent implements OnInit {
     });
   }
 
+  getRandomWord(e) {
+    e.preventDefault();
+    console.log('get random word');
+    this.checkWord = {
+      eng: '',
+      rus: '',
+      ned: '',
+      part: ''
+    };
+  }
+
+  deleteWord(id) {
+    this.api.deleteWord(id).subscribe(res => {
+      console.log(res);
+      this.words.forEach((el, index) => {
+        if (el.id === id) {
+          this.words.splice(index, 1);
+          return;
+        }
+      });
+    }, err => {
+      console.log(err);
+    });
+  }
+
   getWords() {
     this.api.getWords().subscribe(res => {
-      console.log(res._body);
       this.words = JSON.parse(res._body);
     }, err => {
       console.log(err);
@@ -56,7 +97,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.getWords();
   }
 
 }

@@ -1,5 +1,7 @@
+.row {
+  padding: 40px 0;
+}
 .app-inline-form {
-  margin-top: 50px;
   .form-group {
     margin-bottom: 20px;
     label {
@@ -13,4 +15,12 @@
 .app-table {
   margin-top: 50px;
   table-layout: fixed;
+}
+.delete-btn {
+  color: crimson;
+  cursor: pointer;
+}
+.delete-column {
+  width: 38px;
+  text-align: center;
 }
