@@ -46,7 +46,7 @@
         <button class="btn btn-default" type="submit" [disabled]="!addWordForm.valid">Add word</button>
       </form>
       <h4>Check yourself</h4>
-      <form [formGroup]="checkWordForm" (ngSubmit)="checkWord()" class="well">
+      <form [formGroup]="checkWordForm" (ngSubmit)="checkRandomWord($event)" class="well">
         <div class="form-inline app-inline-form">
           <div class="form-group">
             <label for="checkEnglishWord">English</label>

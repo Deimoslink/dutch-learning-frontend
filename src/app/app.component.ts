@@ -74,6 +74,11 @@ export class AppComponent implements OnInit {
     };
   }
 
+  checkRandomWord(e) {
+    e.preventDefault();
+    console.log('check random word');
+  }
+
   deleteWord(id) {
     this.api.deleteWord(id).subscribe(res => {
       console.log(res);
