@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {BASE_URL} from '../../environments/constants';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ApiService {
 
-  baseURL = BASE_URL;
+  baseURL = environment.envName === 'prod' ? BASE_URL : 'http://localhost:3000';
 
   constructor(private http: Http) { }
 
