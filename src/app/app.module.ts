@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {AlertModule} from 'ngx-bootstrap';
 
 import {AppComponent} from './app.component';
+import {ApiService} from './shared/api.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import {AppComponent} from './app.component';
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

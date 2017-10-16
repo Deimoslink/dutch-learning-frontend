@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import {ApiService} from './shared/api.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ export class AppComponent implements OnInit {
   words = [];
   public wordForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: Http) {
+  constructor(private fb: FormBuilder, private api: ApiService) {
 
     this.wordForm = fb.group({
       'eng': new FormControl({value: null, disabled: false},
@@ -33,17 +32,27 @@ export class AppComponent implements OnInit {
   }
 
   sendWord() {
-    console.log(this.newWord);
-    this.newWord = {
-      eng: '',
-      rus: '',
-      ned: '',
-      part: ''
-    };
+    this.api.saveNewWord(this.newWord).subscribe(res => {
+      console.log(res);
+      this.words.push(JSON.parse(res._body));
+      this.newWord = {
+        eng: '',
+        rus: '',
+        ned: '',
+        part: ''
+      };
+    }, err => {
+      console.log(err);
+    });
   }
 
   getWords() {
-    console.log('get words');
+    this.api.getWords().subscribe(res => {
+      console.log(res._body);
+      this.words = JSON.parse(res._body);
+    }, err => {
+      console.log(err);
+    });
   }
 
   ngOnInit() {
