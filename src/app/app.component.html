@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <form [formGroup]="wordForm" (ngSubmit)="sendWord()">
+        <div class="form-inline app-inline-form">
+          <div class="form-group">
+            <label for="english-word">English</label>
+            <input type="text"
+                   class="form-control"
+                   id="english-word"
+                   [(ngModel)]="newWord.eng"
+                   formControlName="eng">
+          </div>
+          <div class="form-group">
+            <label for="russian-word">Russian</label>
+            <input type="text"
+                   class="form-control"
+                   id="russian-word"
+                   [(ngModel)]="newWord.rus"
+                   formControlName="rus">
+          </div>
+          <div class="form-group">
+            <label for="dutch-word">Dutch</label>
+            <input type="text"
+                   class="form-control"
+                   id="dutch-word"
+                   [(ngModel)]="newWord.ned"
+                   formControlName="ned">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dutch-word">Part of speech</label>
+          <select class="form-control app-select"
+                  [(ngModel)]="newWord.part"
+                  formControlName="part">
+            <option value="pronoun">pronoun</option>
+            <option value="noun">noun</option>
+            <option value="verb">verb</option>
+            <option value="adjective">adjective</option>
+            <option value="adverb">adverb</option>
+            <option value="subordinate">subordinate</option>
+            <option value="preposition">preposition</option>
+          </select>
+        </div>
+        <button class="btn btn-default" type="submit" [disabled]="!wordForm.valid">Add word</button>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <p>{{word | json}}</p>
+      <button class="btn btn-default" (click)="getWords()">Get words</button>
+      <table class="table table-bordered app-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>English</th>
+            <th>Russian</th>
+            <th>Dutch</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let word of words; let i = index">
+            <td>{{word.id}}</td>
+            <td>{{word.eng}}</td>
+            <td>{{word.rus}}</td>
+            <td>{{word.ned}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>

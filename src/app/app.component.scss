@@ -1,0 +1,16 @@
+.app-inline-form {
+  margin-top: 50px;
+  .form-group {
+    margin-bottom: 20px;
+    label {
+      width: 100px;
+    }
+  }
+}
+.app-select {
+  width: 200px;
+}
+.app-table {
+  margin-top: 50px;
+  table-layout: fixed;
+}
