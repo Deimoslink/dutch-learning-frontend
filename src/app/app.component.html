@@ -93,7 +93,6 @@
     </div>
     <div class="col-sm-6">
       <h4>Your words</h4>
-      <button class="btn btn-default" (click)="getWords()">Get words</button>
       <table class="table table-bordered app-table">
         <thead>
           <tr>
@@ -113,8 +112,9 @@
         </tbody>
       </table>
       <app-paginator
-        [number]="1"
-        [totalPages]="4"
+        *ngIf="totalPages > 1"
+        [number]="0"
+        [totalPages]="totalPages"
         (refreshNumber)="refreshNumber($event)"></app-paginator>
     </div>
   </div>

@@ -20,6 +20,9 @@ export class AppComponent implements OnInit {
     ned: '',
     part: ''
   };
+  wordsPerPage = 5;
+  totalWords: number;
+  totalPages: number;
   words = [];
   public addWordForm: FormGroup;
   public checkWordForm: FormGroup;
@@ -93,20 +96,23 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getWords() {
-    this.api.getWords().subscribe(res => {
+  getWords(limit, page) {
+    this.api.getWords(limit, page).subscribe(res => {
+      this.totalWords = res.headers.get('x-total-count');
+      this.totalPages = Math.ceil(this.totalWords / this.wordsPerPage);
       this.words = JSON.parse(res._body);
+      console.log('total pages', this.totalPages);
     }, err => {
       console.log(err);
     });
   }
 
   refreshNumber(e) {
-    console.log(e);
+    this.getWords(this.wordsPerPage, e + 1);
   }
 
   ngOnInit() {
-    this.getWords();
+    this.getWords(this.wordsPerPage, 1);
   }
 
 }

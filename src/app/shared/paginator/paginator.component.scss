@@ -1,6 +1,6 @@
 @import '~global.scss';
 
-ul {
+.paginator {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -13,16 +13,21 @@ ul {
     line-height: 28px;
     text-align: center;
     color: $color-aquagreen;
+    list-style: none;
     text-decoration: none;
     cursor: pointer;
-    &:first-of-type {
+    &.pagination-btn-left {
       margin-right: 20px;
     }
-    &:last-of-type {
+    &.pagination-btn-right {
       margin-left: 20px;
     }
   }
-  .btn {
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .pagination-btn {
     @include square(28px);
     margin: 0 1px;
     border: 1px solid white;
@@ -30,7 +35,7 @@ ul {
     &:hover {
       border: 1px solid $color-aquagreen;
     }
-    &.active {
+    &.current {
       border: 1px solid $color-aquagreen;
       background-color: $color-aquagreen;
       color: white;

@@ -47,6 +47,9 @@ export class PaginatorComponent implements OnInit, OnChanges {
     if (num > this.totalPages - 1) {
       return;
     }
+    if (num === this.number) {
+      return;
+    }
     this.number = num;
     this.refreshView();
   }

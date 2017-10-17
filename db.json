@@ -20,6 +20,27 @@
       "ned": "wij",
       "part": "pronoun",
       "id": 3
+    },
+    {
+      "eng": "sefwsa",
+      "rus": "sadfa",
+      "ned": "sdfsad",
+      "part": "adjective",
+      "id": 4
+    },
+    {
+      "eng": "sadf",
+      "rus": "asdf",
+      "ned": "asdf",
+      "part": "noun",
+      "id": 5
+    },
+    {
+      "eng": "asdf",
+      "rus": "sadf",
+      "ned": "asdf",
+      "part": "verb",
+      "id": 6
     }
   ]
 }

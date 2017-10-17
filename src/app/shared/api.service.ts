@@ -19,8 +19,8 @@ export class ApiService {
     return this.http.delete(this.baseURL + '/words/' + id);
   }
 
-  getWords(): Observable<any> {
-    return this.http.get(this.baseURL + '/words');
+  getWords(limit, page): Observable<any> {
+    return this.http.get(this.baseURL + '/words?_limit=' + limit + '&_page=' + page);
   }
 
 }
