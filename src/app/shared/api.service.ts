@@ -23,4 +23,16 @@ export class ApiService {
     return this.http.get(this.baseURL + '/words?_limit=' + limit + '&_page=' + page);
   }
 
+  countFilteredWords(type): Observable<any> {
+    return this.http.get(this.baseURL + '/words?part=' + type + '&_start=0&_limit=1');
+  }
+
+  getRandomWord(type, number): Observable<any> {
+    return this.http.get(this.baseURL + '/words?part=' + type + '&_start=' + number + '&_limit=1');
+  }
+
+  getFilteredWords(type): Observable<any> {
+    return this.http.get(this.baseURL + '/words?part=' + type);
+  }
+
 }

@@ -8,6 +8,7 @@ import {ApiService} from './shared/api.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  partsOfSpeech = ['pronoun', 'noun', 'verb', 'adjective', 'adverb', 'subordinate', 'preposition'];
   newWord = {
     eng: '',
     rus: '',
@@ -66,16 +67,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getRandomWord(e) {
-    e.preventDefault();
-    console.log('get random word');
-    this.checkWord = {
-      eng: '',
-      rus: '',
-      ned: '',
-      part: ''
-    };
-  }
 
   checkRandomWord(e) {
     e.preventDefault();
@@ -105,6 +96,24 @@ export class AppComponent implements OnInit {
     }, err => {
       console.log(err);
     });
+  }
+
+  randomInteger(min, max) {
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    rand = Math.round(rand);
+    return rand;
+  }
+
+  getRandomWord(e, type) {
+    e.preventDefault();
+    this.api.countFilteredWords(type).subscribe(res => {
+      let totalElems = res.headers.get('x-total-count');
+      let random = this.randomInteger(0, totalElems - 1);
+      this.api.getRandomWord(type, random).subscribe(res2 => {
+        console.log(JSON.parse(res2._body)[0]);
+        this.checkWord = JSON.parse(res2._body)[0];
+      }, err2 => { console.log(err2); });
+    }, err => { console.log(err); });
   }
 
   refreshNumber(e) {
