@@ -7,11 +7,15 @@ import {AlertModule} from 'ngx-bootstrap';
 import {AppComponent} from './app.component';
 import {ApiService} from './shared/api.service';
 import {PaginatorComponent} from './shared/paginator/paginator.component';
+import { AddNewWordComponent } from './add-new-word/add-new-word.component';
+import { WordsTableComponent } from './words-table/words-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    AddNewWordComponent,
+    WordsTableComponent
   ],
   imports: [
     AlertModule.forRoot(),

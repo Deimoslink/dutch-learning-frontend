@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  min-width: 270px;
+}
+.row {
+  padding: 40px 0;
+}
+.app-inline-form {
+  .form-group {
+    margin-bottom: 20px !important;
+    label {
+      width: 100px;
+    }
+  }
+}
+.app-select {
+  width: 200px;
+}
+.app-table {
+  table-layout: fixed;
+}
+.delete-btn {
+  color: crimson;
+  cursor: pointer;
+}
+.delete-column {
+  width: 38px;
+  text-align: center;
+}
+.custom-checkbox {
+  margin-right: 10px !important;
+}
+.checkbox-label {
+  font-weight: 300;
+}

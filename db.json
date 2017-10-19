@@ -71,25 +71,11 @@
       "id": 10
     },
     {
-      "eng": "asdgas",
-      "rus": "sadgsad",
-      "ned": "gsadgasgd",
-      "part": "verb",
-      "id": 11
-    },
-    {
       "eng": "asdgfas",
       "rus": "dgas",
       "ned": "dgasdgsagd",
       "part": "adjective",
       "id": 12
-    },
-    {
-      "eng": "asdgas",
-      "rus": "dgasdga",
-      "ned": "sdgasdg",
-      "part": "subordinate",
-      "id": 13
     },
     {
       "eng": "asdgasd",
@@ -153,6 +139,13 @@
       "ned": "апывапвы",
       "part": "subordinate",
       "id": 22
+    },
+    {
+      "eng": "subordinate",
+      "rus": "ывапвыа",
+      "ned": "ывапвыа",
+      "part": "preposition",
+      "id": 23
     }
   ]
 }

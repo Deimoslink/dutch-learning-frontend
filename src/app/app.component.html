@@ -11,6 +11,13 @@
                    id="checkEnglishWord"
                    [(ngModel)]="checkWord.eng"
                    formControlName="eng">
+            <br>
+            <input id="engControl"
+                   name="engControl"
+                   type="checkbox"
+                   class="custom-checkbox"
+                   [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="checkFilter.eng"><label for="engControl" class="checkbox-label">check English</label>
           </div>
           <div class="form-group">
             <label for="checkRussianWord">Russian</label>
@@ -19,6 +26,13 @@
                    id="checkRussianWord"
                    [(ngModel)]="checkWord.rus"
                    formControlName="rus">
+            <br>
+            <input id="rusControl"
+                   name="rusControl"
+                   type="checkbox"
+                   class="custom-checkbox"
+                   [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="checkFilter.rus"><label for="rusControl" class="checkbox-label">check Russian</label>
           </div>
           <div class="form-group">
             <label for="checkDutchWord">Dutch</label>
@@ -27,6 +41,13 @@
                    id="checkDutchWord"
                    [(ngModel)]="checkWord.ned"
                    formControlName="ned">
+            <br>
+            <input id="nedControl"
+                   name="nedControl"
+                   type="checkbox"
+                   class="custom-checkbox"
+                   [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="checkFilter.ned"><label for="nedControl" class="checkbox-label">check Dutch</label>
           </div>
         </div>
         <div class="form-group">
@@ -40,70 +61,10 @@
         <button class="btn btn-default" type="button" [disabled]="!checkWord.part" (click)="getRandomWord($event, checkWord.part)">Get random word</button>
         <button class="btn btn-default" type="submit" [disabled]="!checkWordForm.valid">Check word</button>
       </form>
-      <h4>Add a new word</h4>
-      <form [formGroup]="addWordForm" (ngSubmit)="sendWord()" class="well">
-        <div class="form-inline app-inline-form">
-          <div class="form-group">
-            <label for="addEnglishWord">English</label>
-            <input type="text"
-                   class="form-control"
-                   id="addEnglishWord"
-                   [(ngModel)]="newWord.eng"
-                   formControlName="eng">
-          </div>
-          <div class="form-group">
-            <label for="addRussianWord">Russian</label>
-            <input type="text"
-                   class="form-control"
-                   id="addRussianWord"
-                   [(ngModel)]="newWord.rus"
-                   formControlName="rus">
-          </div>
-          <div class="form-group">
-            <label for="addDutchWord">Dutch</label>
-            <input type="text"
-                   class="form-control"
-                   id="addDutchWord"
-                   [(ngModel)]="newWord.ned"
-                   formControlName="ned">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Part of speech</label>
-          <select class="form-control app-select"
-                  [(ngModel)]="newWord.part"
-                  formControlName="part">
-            <option *ngFor="let part of partsOfSpeech; let i = index" [value]="part">{{part}}</option>
-          </select>
-        </div>
-        <button class="btn btn-default" type="submit" [disabled]="!addWordForm.valid">Add word</button>
-      </form>
+      <app-add-new-word></app-add-new-word>
     </div>
     <div class="col-sm-6">
-      <h4>Your words</h4>
-      <app-paginator
-        *ngIf="totalPages > 1"
-        [number]="0"
-        [totalPages]="totalPages"
-        (refreshNumber)="refreshNumber($event)"></app-paginator>
-      <table class="table table-bordered app-table">
-        <thead>
-          <tr>
-            <th class="delete-column"></th>
-            <th>English</th>
-            <th>Russian</th>
-            <th>Dutch</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let word of words; let i = index">
-            <td class="delete-column"><i class="fa fa-times delete-btn" (click)="deleteWord(word.id)"></i></td>
-            <td>{{word.eng}}</td>
-            <td>{{word.rus}}</td>
-            <td>{{word.ned}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-words-table></app-words-table>
     </div>
   </div>
 

@@ -1,0 +1,24 @@
+<h4>Your words</h4>
+<app-paginator
+  *ngIf="totalPages > 1"
+  [number]="0"
+  [totalPages]="totalPages"
+  (refreshNumber)="refreshNumber($event)"></app-paginator>
+<table class="table table-bordered app-table">
+  <thead>
+  <tr>
+    <th class="delete-column"></th>
+    <th>English</th>
+    <th>Russian</th>
+    <th>Dutch</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let word of words; let i = index">
+    <td class="delete-column"><i class="fa fa-times delete-btn" (click)="deleteWord(word.id)"></i></td>
+    <td>{{word.eng}}</td>
+    <td>{{word.rus}}</td>
+    <td>{{word.ned}}</td>
+  </tr>
+  </tbody>
+</table>
