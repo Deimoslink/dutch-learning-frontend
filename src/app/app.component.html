@@ -4,7 +4,7 @@
       <h4>Check yourself</h4>
       <form [formGroup]="checkWordForm" (ngSubmit)="checkRandomWord($event)" class="well">
         <div class="form-inline app-inline-form">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': checkDone && errorStatus.eng, 'has-success': checkDone && !errorStatus.eng}">
             <label for="checkEnglishWord">English</label>
             <input type="text"
                    class="form-control"
@@ -17,9 +17,9 @@
                    type="checkbox"
                    class="custom-checkbox"
                    [ngModelOptions]="{standalone: true}"
-                   [(ngModel)]="checkFilter.eng"><label for="engControl" class="checkbox-label">check English</label>
+                   [(ngModel)]="checkFilter.eng"><label for="engControl" class="checkbox-label">show English</label>
           </div>
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': checkDone && errorStatus.rus, 'has-success': checkDone && !errorStatus.rus}">
             <label for="checkRussianWord">Russian</label>
             <input type="text"
                    class="form-control"
@@ -32,9 +32,9 @@
                    type="checkbox"
                    class="custom-checkbox"
                    [ngModelOptions]="{standalone: true}"
-                   [(ngModel)]="checkFilter.rus"><label for="rusControl" class="checkbox-label">check Russian</label>
+                   [(ngModel)]="checkFilter.rus"><label for="rusControl" class="checkbox-label">show Russian</label>
           </div>
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': checkDone && errorStatus.ned, 'has-success': checkDone && !errorStatus.ned}">
             <label for="checkDutchWord">Dutch</label>
             <input type="text"
                    class="form-control"
@@ -47,7 +47,7 @@
                    type="checkbox"
                    class="custom-checkbox"
                    [ngModelOptions]="{standalone: true}"
-                   [(ngModel)]="checkFilter.ned"><label for="nedControl" class="checkbox-label">check Dutch</label>
+                   [(ngModel)]="checkFilter.ned"><label for="nedControl" class="checkbox-label">show Dutch</label>
           </div>
         </div>
         <div class="form-group">
@@ -58,13 +58,21 @@
             <option *ngFor="let part of partsOfSpeech; let i = index" [value]="part">{{part}}</option>
           </select>
         </div>
-        <button class="btn btn-default" type="button" [disabled]="!checkWord.part" (click)="getRandomWord($event, checkWord.part)">Get random word</button>
-        <button class="btn btn-default" type="submit" [disabled]="!checkWordForm.valid">Check word</button>
+        <div class="btn-group" style="margin-bottom: 15px">
+          <button class="btn btn-default" type="button" [disabled]="!checkWord.part" (click)="getRandomWord($event, checkWord.part)">Get random word</button>
+          <button class="btn btn-default" type="submit" [disabled]="!targetWordIsSet || !checkWordForm.valid">Check word</button>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">total words <span class="badge">{{statistics.wordsGenerated}}</span></li>
+          <li class="list-group-item">attempts <span class="badge">{{statistics.attempts}}</span></li>
+          <li class="list-group-item list-group-item-danger">mistakes <span class="badge">{{statistics.mistakes}}</span></li>
+          <li class="list-group-item list-group-item-success">correct answers <span class="badge">{{statistics.rightAnswers}}</span></li>
+        </ul>
       </form>
-      <app-add-new-word></app-add-new-word>
+      <app-words-table></app-words-table>
     </div>
     <div class="col-sm-6">
-      <app-words-table></app-words-table>
+      <app-add-new-word></app-add-new-word>
     </div>
   </div>
 

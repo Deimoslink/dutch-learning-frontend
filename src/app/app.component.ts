@@ -10,6 +10,14 @@ import {ApiService} from './shared/api.service';
 })
 export class AppComponent implements OnInit {
   partsOfSpeech = ['pronoun', 'noun', 'verb', 'adjective', 'adverb', 'subordinate', 'preposition'];
+  langs = ['eng', 'rus', 'ned'];
+  targetWordIsSet = false;
+  checkDone = false;
+  errorStatus = {
+    eng: false,
+    rus: false,
+    ned: false
+  };
   checkWord = {
     eng: '',
     rus: '',
@@ -27,6 +35,14 @@ export class AppComponent implements OnInit {
     rus: true,
     ned: false
   };
+
+  statistics = {
+    mistakes: 0,
+    rightAnswers: 0,
+    wordsGenerated: 0,
+    attempts: 0
+  };
+
   public checkWordForm: FormGroup;
 
   constructor(private fb: FormBuilder, private api: ApiService) {
@@ -38,15 +54,25 @@ export class AppComponent implements OnInit {
         Validators.required),
       'ned': new FormControl({value: null, disabled: false},
         Validators.required),
-      'part': new FormControl({value: null, disabled: false},
-        Validators.required)
+      'part': new FormControl({value: null, disabled: false})
     });
   }
 
-
   checkRandomWord(e) {
     e.preventDefault();
-    console.log('check random word');
+    console.log('check triggered');
+    this.statistics.attempts++;
+    let answers = [];
+    this.langs.forEach(l => {
+      this.errorStatus[l] = !(this.checkWord[l] === this.targetWord[l]);
+      answers.push(!(this.checkWord[l] === this.targetWord[l]));
+    });
+    if (answers.some(el => {return el; })) {
+      this.statistics.mistakes++;
+    } else {
+      this.statistics.rightAnswers++;
+    }
+    this.checkDone = true;
   }
 
 
@@ -56,14 +82,32 @@ export class AppComponent implements OnInit {
     return rand;
   }
 
+  filterTagretedWord(target) {
+    this.langs.forEach(l => {
+      if (this.checkFilter[l]) {
+        this.checkWord[l] = target[l];
+      } else {
+        this.checkWord[l] = '';
+      }
+    });
+  }
+
   getRandomWord(e, type) {
     e.preventDefault();
     this.api.countFilteredWords(type).subscribe(res => {
       let totalElems = res.headers.get('x-total-count');
       let random = this.randomInteger(0, totalElems - 1);
       this.api.getRandomWord(type, random).subscribe(res2 => {
-        console.log(JSON.parse(res2._body)[0]);
-        this.checkWord = JSON.parse(res2._body)[0];
+        this.targetWord = JSON.parse(res2._body)[0];
+        this.filterTagretedWord(this.targetWord);
+        this.errorStatus = {
+          eng: false,
+          rus: false,
+          ned: false
+        };
+        this.checkDone = false;
+        this.targetWordIsSet = true;
+        this.statistics.wordsGenerated++;
       }, err2 => { console.log(err2); });
     }, err => { console.log(err); });
   }
