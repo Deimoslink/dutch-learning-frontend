@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ApiService} from '../shared/api.service';
+import {AngularFireDatabase} from 'angularfire2/database';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-words-table',
@@ -9,44 +10,30 @@ import {ApiService} from '../shared/api.service';
 })
 export class WordsTableComponent implements OnInit {
 
-  wordsPerPage = 5;
-  totalWords: number;
   totalPages: number;
   words = [];
+  list: Observable<any>;
 
-  constructor(private api: ApiService) { }
-
-  refreshNumber(e) {
-    this.getWords(this.wordsPerPage, e + 1);
+  constructor(private db: AngularFireDatabase) {
+    this.list = db.list('/words', ref => ref.limitToFirst(5)).snapshotChanges();
   }
 
-  getWords(limit, page) {
-    this.api.getWords(limit, page).subscribe(res => {
-      this.totalWords = res.headers.get('x-total-count');
-      this.totalPages = Math.ceil(this.totalWords / this.wordsPerPage);
-      this.words = JSON.parse(res._body);
-      console.log('total pages', this.totalPages);
-    }, err => {
-      console.log(err);
-    });
+  refreshNumber(e) {
+
   }
 
   deleteWord(id) {
-    this.api.deleteWord(id).subscribe(res => {
-      console.log(res);
-      this.words.forEach((el, index) => {
-        if (el.id === id) {
-          this.words.splice(index, 1);
-          return;
-        }
-      });
-    }, err => {
-      console.log(err);
-    });
+    this.db.list('/words').remove(id).then(res => console.log(res));
   }
 
   ngOnInit() {
-    this.getWords(this.wordsPerPage, 1);
+    this.list.subscribe(res => {
+      this.words = res.map(item => {
+        const word = item.payload.toJSON();
+        word['id'] = item.key;
+        return word;
+      });
+    });
   }
 
 }

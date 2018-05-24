@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../shared/api.service';
+import {FirebaseService} from '../shared/firebase.service';
 
 @Component({
   selector: 'app-add-new-word',
@@ -18,7 +19,7 @@ export class AddNewWordComponent implements OnInit {
   };
   public addWordForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private api: ApiService) {
+  constructor(private fb: FormBuilder, private api: ApiService, private FB: FirebaseService) {
     this.addWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: false},
         Validators.required),
@@ -34,6 +35,20 @@ export class AddNewWordComponent implements OnInit {
   sendWord() {
     this.api.saveNewWord(this.newWord).subscribe(res => {
       console.log('new word is ', JSON.parse(res._body));
+      this.newWord = {
+        eng: '',
+        rus: '',
+        ned: '',
+        part: ''
+      };
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  sendFireBaseWord() {
+    this.FB.saveNewWord(this.newWord).subscribe(res => {
+      console.log('new word is ', res);
       this.newWord = {
         eng: '',
         rus: '',
